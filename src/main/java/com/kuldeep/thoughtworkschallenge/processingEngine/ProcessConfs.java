@@ -24,6 +24,14 @@ public class ProcessConfs {
     private static List<Integer> remainingNumbersMain = new ArrayList();
     private static List<Integer> usedNumbersMain = new ArrayList();   
 
+    
+    /**
+     * 
+     * @param conferences
+     * @param unquieConferences 
+     * 
+     * This method accepts the raw data as a list of conferences and extracts the title and time into a map
+     */
     public static void buidConferences(List<String> conferences, Map<String, Integer> unquieConferences) {
 
         for (String conf : conferences) {
@@ -44,6 +52,13 @@ public class ProcessConfs {
         }
     }
 
+    /**
+     * 
+     * @param unquieConferences
+     * @return 
+     * 
+     * This method schedules the conferences based on tracks and their morning-evening sessions
+     */
     public static Conference scheduleConference(Map<String, Integer> unquieConferences) {
 
         Conference conference = new Conference();
@@ -123,6 +138,18 @@ public class ProcessConfs {
 
     }
     
+    /**
+     * 
+     * @param confs
+     * @param target
+     * @return 
+     * 
+     * This method would return the combinations of numbers i.e conference duration, that sums up to a particular session of certain time
+     * as specified in target
+     * 
+     * e.g. Input proposals Durations {60,45,30}, session target time 90
+     *      Output {60,30} which adds upto 90,  therefore the session of time 90 would have two proposals 60 and 30
+     */
      public static Map<String, Integer> generateCombinationOfTiming(Map<String, Integer> confs, Integer target) {
 
         isSet = false;
