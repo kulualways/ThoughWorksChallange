@@ -1,5 +1,5 @@
 
-package com.kuldeep.thoughtworkschallange;
+package com.kuldeep.thoughtworkschallenge;
 
 import java.util.List;
 
@@ -17,6 +17,12 @@ public class Conference {
 
     public void setTracks(List<Tracks> tracks) {
         this.tracks = tracks;
+    }
+  
+    @Override
+    public String toString(){
+        
+        return "";
     }
     
 }

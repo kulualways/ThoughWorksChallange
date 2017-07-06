@@ -1,4 +1,4 @@
-package com.kuldeep.thoughtworkschallange;
+package com.kuldeep.thoughtworkschallenge;
 
 import java.time.Duration;
 
