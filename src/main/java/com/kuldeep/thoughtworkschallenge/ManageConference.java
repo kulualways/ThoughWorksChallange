@@ -1,10 +1,7 @@
 package com.kuldeep.thoughtworkschallenge;
 
-import com.kuldeep.thoughtworkschallange.test.Test;
 import com.kuldeep.thoughtworkschallenge.processingEngine.ProcessConfs;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +12,22 @@ import java.util.Map;
  */
 public class ManageConference {
 
+    /**
+     *
+     * @param args Assumed that the data would be received in this format
+     * "Writing Fast Tests Against Enterprise Rails 60min", "Overdoing it in
+     * Python 45min"....
+     */
     public static void main(String args[]) {
 
         List<String> conferences = new ArrayList();
-        Map<String, Integer> unquieConferences = new LinkedHashMap();
 
+        // Uncomment the below line to get the data via String args[]
+        // conferences = Arrays.asList(args);    
+        
+        
+        
+        //Comment these conferences addtions if using String args[]
         conferences.add("Writing Fast Tests Against Enterprise Rails 60min");
         conferences.add("Overdoing it in Python 45min");
         conferences.add("Lua for the Masses 30min");
@@ -40,77 +48,15 @@ public class ManageConference {
         conferences.add("A World Without HackerNews 30min");
         conferences.add("User Interface CSS in Rails Apps 30min");
 
-        for (String conf : conferences) {
+        Map<String, Integer> unquieConferences = new LinkedHashMap();
 
-            int duration = 0;
-            String confTitle = conf.substring(0, conf.lastIndexOf(" "));
-            String lastWord = conf.substring(conf.lastIndexOf(" ") + 1, conf.length());
-         //   System.out.println("Title " + confTitle + " Last Word " + lastWord);
+        ProcessConfs.buidConferences(conferences, unquieConferences);
 
-            if (lastWord.equalsIgnoreCase("lightning")) {
-                duration = 5;
-            } else {
-                duration = Integer.valueOf(lastWord.substring(duration, lastWord.length() - 3));
-            }
+        // System.out.println("Before Processing unquieConferences " + unquieConferences.toString());
+        Conference conference = ProcessConfs.scheduleConference(unquieConferences);
 
-            unquieConferences.put(confTitle, duration);
+        System.out.println(conference);
 
-        }
-
-       // System.out.println("Before Processing unquieConferences " + unquieConferences.toString());
-       
-       Conference conference = new Conference();
-       
-       List<Tracks> tracks = new ArrayList();
-       
-       while(!unquieConferences.isEmpty()){
-       
-       /**Process things for Morning session, Must finish before 12 noon
-        * Set target duration to 3 hours i.e 180mins
-        */
-       Tracks track = new Tracks();
-       List<Proposal> proposals = new ArrayList();
-        Map<String, Integer> morningConferences = ProcessConfs.processConf(unquieConferences,180);
-        
-        if(!morningConferences.isEmpty()){
-          
-            
-            for(Map.Entry<String, Integer> entry : morningConferences.entrySet()){     
-                proposals.add(new Proposal(entry.getKey(),entry.getValue()));
-                //System.out.println(entry.getKey() + " " + entry.getValue().toString());
-            }
-            
-             unquieConferences.entrySet().removeAll(morningConferences.entrySet());   
-            
-             /**
-              * Add Lunch duration
-              */     
-     
-             proposals.add(new Proposal("Lunch",60));
-             //System.out.println("Lunch 12PM");
-             
-             Map<String, Integer> eveningConferences = ProcessConfs.processConf(unquieConferences,240);
-             
-             unquieConferences.entrySet().removeAll(eveningConferences.entrySet()); 
-                      
-            for(Map.Entry<String, Integer> entry : eveningConferences.entrySet()){     
-                proposals.add(new Proposal(entry.getKey(),entry.getValue()));
-                //System.out.println(entry.getKey() + " " + entry.getValue().toString());
-            }          
-          
-            track.setProposals(proposals);
-            tracks.add(track);
-            System.out.println("Track Finished");
-            
-        }
-        
-       
-       }
- 
-       conference.setTracks(tracks);
-       
-       System.out.println(conference);
-       
     }
 
 }

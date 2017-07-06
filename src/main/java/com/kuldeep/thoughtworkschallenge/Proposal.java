@@ -1,34 +1,40 @@
 package com.kuldeep.thoughtworkschallenge;
 
-import java.time.Duration;
+import java.util.Date;
 
 /**
  *
  * @author Kuldeep.Chauhan
  */
 public class Proposal {
-    
-    public Proposal(String title, long duration){  
-        
+
+    public Proposal(String title, int duration, Date time) {
+
         this.title = title;
-        
-        if(duration > 59){
-           this.duration = Duration.ofMinutes(59);  
-        }else{
-           this.duration = Duration.ofMinutes(duration);  
-        }        
+
+        this.duration = duration;
+
+        this.time = time;
+
     }
-    
+
     private final String title;
-    
-    private final Duration duration; 
+
+    private final int duration;
+
+    private Date time;
 
     public String getTitle() {
         return title;
     }
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
-    }     
+    }
     
+    public Date getTime(){
+        
+        return time;
+    }
+
 }
